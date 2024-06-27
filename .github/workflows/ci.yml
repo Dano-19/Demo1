@@ -1,0 +1,22 @@
+name: Docker run tests
+
+on: 
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs: 
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - uses: actions/checkout@v4
+    - name: Build the Dpcker image
+      run: |
+        docker-compose build angular-test
+        docker-compose run --rm angular-test
