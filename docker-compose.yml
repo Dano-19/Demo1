@@ -1,0 +1,34 @@
+services:
+  angular-test:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ["ng","test","--no-watch","--progress","--browsers=ChromeHeadlessNoSandbox"]
+    #command: ["ng","test","--watch","--progress","--browsers=ChromeHeadlessNoSandbox"]
+  angular-app:
+    build:
+      context: .
+      target: development
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app 
+      - /app/node_modules
+    command: ["ng","serve","--host","0.0.0.0","--poll","2000"]
+  angular-cli:
+    build: 
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    entrypoint: [""]
+  angular-prod:
+    build:
+      context: .
+      target: build
+    ports:
+      - "80:80"
